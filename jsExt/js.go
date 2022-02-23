@@ -1,8 +1,14 @@
 package jsExt
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 func QuerySelector(selector string) string {
+	if strings.HasPrefix(selector,"/"){
+		return fmt.Sprintf("document.evaluate(`%s`, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue",selector)
+	}
 	return fmt.Sprintf(`document.querySelector("%s")`, selector)
 }
 func QuerySelectorVisible(selector string) string {
